@@ -1,0 +1,2796 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "iTime",
+    "description": "This is an API documentation for the mobile application named \"iTime\"",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "snilove@hotmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "account",
+      "description": "Operations about account"
+    },
+    {
+      "name": "calendar",
+      "description": "Access to Petstore orders"
+    },
+    {
+      "name": "contact",
+      "description": "Operations about contact info"
+    },
+    {
+      "name": "event",
+      "description": "Operations about events"
+    },
+    {
+      "name": "meeting",
+      "description": "Operations about meetings"
+    },
+    {
+      "name": "activity",
+      "description": "Operations about activity msgs"
+    },
+    {
+      "name": "setting",
+      "description": "Operations about settings"
+    },
+    {
+      "name": "user",
+      "description": "Operations about users"
+    }
+  ],
+  "paths": {
+    "/account/list": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Get binding accounts",
+        "operationId": "getBindingAccountsFromRemote",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/account/google/unbind/{account_uid}": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Delete binding acc of google",
+        "operationId": "deleteBindingAccountsOfGoogle",
+        "parameters": [
+          {
+            "name": "account_uid",
+            "in": "path",
+            "description": "Uid of the account to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully deleted",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/account/university/unbind/{account_uid}": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Delete binding acc of unimelb",
+        "operationId": "deleteBindingAccountsOfUnimelb",
+        "parameters": [
+          {
+            "name": "account_uid",
+            "in": "path",
+            "description": "Uid of the account to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully deleted",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/account/google/bind/{authcode}": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "summary": "import the calendar from google calendar",
+        "operationId": "importCalendarFromGoogleCalendar",
+        "parameters": [
+          {
+            "name": "authcode",
+            "in": "path",
+            "description": "authentication code from google",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully binded",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception",
+            "content": {}
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/account/university/bind/unimelb": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "summary": "import the calendar from unimelb calendar",
+        "operationId": "importCalendarFromUniMelb",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "description": "username of the unimelb account"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "password of the unimelb account"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully binded",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception",
+            "content": {}
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/calendar/list": {
+      "get": {
+        "tags": [
+          "calendar"
+        ],
+        "summary": "Get the whole calendar",
+        "operationId": "listCalendarsRemote",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/calendar/insert": {
+      "post": {
+        "tags": [
+          "calendar"
+        ],
+        "summary": "insert a new calendar",
+        "operationId": "insertCalendarRemote",
+        "requestBody": {
+          "description": "iTimeCalendar",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/ITimeCalendar"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/calendar/share/{calendarUid}/change": {
+      "post": {
+        "tags": [
+          "calendar"
+        ],
+        "summary": "change permission level of a user",
+        "operationId": "changeSharePermissionLevelOfUser",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "info to share",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/ShareParameter"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/calendar/share/{calendarUid}": {
+      "post": {
+        "tags": [
+          "calendar"
+        ],
+        "summary": "share calendar with added people",
+        "operationId": "shareCalendarWithAddedPeople",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "info to share",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/ShareParameter"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/calendar/unshare/{calendarUid}/{userUid}": {
+      "post": {
+        "tags": [
+          "calendar"
+        ],
+        "summary": "unshare calendar with user",
+        "operationId": "unshareCalendar",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userUid",
+            "in": "path",
+            "description": "Uid of the user",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/calendar/share/{calendarUid}/revoke": {
+      "post": {
+        "tags": [
+          "calendar"
+        ],
+        "summary": "revoke the shared calendar",
+        "operationId": "revokeSharedCalendar",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "parameters": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/calendar/share/{calendarUid}/status": {
+      "post": {
+        "tags": [
+          "calendar"
+        ],
+        "summary": "get the calendar's status",
+        "operationId": "getCalendarStatusFromRemote",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/calendar/update/{calendarUid}": {
+      "post": {
+        "tags": [
+          "calendar"
+        ],
+        "summary": "update the calendar",
+        "operationId": "updateCalendarRemote",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/ITimeCalendar"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/calendar/delete/{calendarUid}": {
+      "post": {
+        "tags": [
+          "calendar"
+        ],
+        "summary": "delete the calendar",
+        "operationId": "deleteCalendarRemote",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/ITimeCalendar"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/calendar/unsubscribe/{calendarUid}": {
+      "post": {
+        "tags": [
+          "calendar"
+        ],
+        "summary": "unsubscribe the calendar",
+        "operationId": "unsubscribeCalendarRemote",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/contact/user/list": {
+      "get": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "get the user list -- (NOT SURE)",
+        "operationId": "listContactsRemote",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "syncToken",
+            "description": "[\"syncToken\": syncToken as AnyObject]",
+            "schema": {
+              "properties": {
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/contact/friend_request/list": {
+      "get": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "list all friend requests",
+        "operationId": "listFriendRequest",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "syncToken",
+            "description": "[\"syncToken\": syncToken as AnyObject]",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/contact/friend_request/send/{friendUserUid}/{invitationSource}": {
+      "post": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "send the request to add a friend",
+        "operationId": "sendFriendRequest",
+        "parameters": [
+          {
+            "name": "friendUserUid",
+            "in": "path",
+            "description": "UserUid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "invitationSource",
+            "in": "path",
+            "description": "source of invitation, e.g \"itime\"",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/contact/friend_request/confirm/{freqUid}": {
+      "post": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "send the confirm ack",
+        "operationId": "confirmFriendRequest",
+        "parameters": [
+          {
+            "name": "freqUid",
+            "in": "path",
+            "description": "Uid of FriendRequest",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/contact/friend_request/reject/{freqUid}": {
+      "post": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "reject the friend request",
+        "operationId": "rejectFriendRequest",
+        "parameters": [
+          {
+            "name": "freqUid",
+            "in": "path",
+            "description": "Uid of FriendRequest",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/contact/delete/{contactUid}": {
+      "post": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "delete the contact",
+        "operationId": "deleteContact",
+        "parameters": [
+          {
+            "name": "contactUid",
+            "in": "path",
+            "description": "Uid of the user in contact",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/getLink/{eventUid}": {
+      "get": {
+        "tags": [
+          "event"
+        ],
+        "summary": "get the public event link",
+        "operationId": "getPublicEventLink",
+        "parameters": [
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/getPublicEvent/{eventUid}": {
+      "get": {
+        "tags": [
+          "event"
+        ],
+        "summary": "get the public event",
+        "operationId": "getPublicEvent",
+        "parameters": [
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/list/{calendarUid}": {
+      "get": {
+        "tags": [
+          "event"
+        ],
+        "summary": "get the newest event list from the server",
+        "operationId": "syncEventsFromRemote",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/insert": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "create a new event",
+        "operationId": "createEventRemote",
+        "requestBody": {
+          "description": "iTimeEvent",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITimeEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/update/{previousCalendarUId}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "create a new event",
+        "operationId": "updateEventRemote",
+        "parameters": [
+          {
+            "name": "previousCalendarUId",
+            "in": "path",
+            "description": "Uid of the previous calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "iTimeEvent",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITimeEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/invite/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "invite users to a public event",
+        "operationId": "publicEventInviteFriends",
+        "parameters": [
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "invitees",
+            "in": "query",
+            "description": "users to be inviteds",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "count": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/publish_event": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "create a new public event",
+        "operationId": "createPublicEventRemote",
+        "requestBody": {
+          "description": "iTimeEvent",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITimeEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/updatePublicEvent/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "update a public event",
+        "operationId": "updatePublicEventRemote",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "iTimeEvent",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITimeEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/update_cover_photo/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "update a cover photo",
+        "operationId": "updateCoverPhoto",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "coverPhotoUrl",
+            "in": "query",
+            "description": "url of the new cover photo",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/delete/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "delete the event by host users",
+        "operationId": "deleteEventRemote",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/invitee/delete/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "delete the event by non-host users",
+        "operationId": "deleteEventRemote(same as above)",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/deletePublicEvent/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "delete the public event",
+        "operationId": "deletePublicEventRemote",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/photo/update/{calendarUid}/{eventUid}/{photoUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "update a photo",
+        "operationId": "updatePhotoInfo",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "photoUid",
+            "in": "path",
+            "description": "Uid of the photo",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/confirm/{calendarUid}/{eventUid}/{timeslotUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "confirme the invitation of the group event",
+        "operationId": "hostConfirmGroupEventInvitation",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timeslotUid",
+            "in": "path",
+            "description": "timestamp",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/timeslot/accept/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "request if invitee accepts the time slot",
+        "operationId": "inviteeAcceptTimeslots",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timeslot",
+            "in": "path",
+            "description": "time slot of the event",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ITimeTimeslot"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/timeslot/reject/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "reject time slot",
+        "operationId": "inviteeRejectAllTimeslots",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "description": "reason of rejecting the timeslot",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/invitee/accept/{calendarUid}{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "confirm to attend the event",
+        "operationId": "inviteeGoingConfirmedEvent",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/addPublicEvent/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "confirm to attend the public event",
+        "operationId": "userGoingPublicEvent",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/accept/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "the invitee dicide to attend the public event",
+        "operationId": "inviteeGoingPublicEvent",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/invitee/quit/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "not going the confirmed event",
+        "operationId": "inviteeNotGoingConfirmedEvent",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/removePublicEvent/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "user rejects to go to the public event",
+        "operationId": "userNotGoingPublicEvent",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/reject/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "the invitee rejects to go to the public event",
+        "operationId": "inviteeNotGoingPublicEvent",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/pin/{calendarUid}/{eventUid}/{pinInt}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "the user pin an event",
+        "operationId": "userPinEvent",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pinInt",
+            "in": "path",
+            "description": "1/0 for isPin or not",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/remind_all/{calendarUid}/{eventUid}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "send a notification to everyone in the event group",
+        "operationId": "groupEventRemindEveryone",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/pin/{calendarUid}/{eventUid}/{archiveInt}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "the user archieve an event",
+        "operationId": "userArchiveEvent",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "archiveInt",
+            "in": "path",
+            "description": "1/0 for isArchieve or not",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/pin/{calendarUid}/{eventUid}/{muteInt}": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "the user mute an event",
+        "operationId": "userMuteEvent",
+        "parameters": [
+          {
+            "name": "calendarUid",
+            "in": "path",
+            "description": "Uid of the calendar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "muteInt",
+            "in": "path",
+            "description": "1/0 for isMute or not",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/event/timeslot/recommend": {
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "fetch rec timeslotes from server",
+        "operationId": "fetchRecommandedTimeslotsFromRemot",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "parameters",
+            "description": "The user to create.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "event": {
+                  "type": "string"
+                },
+                "startRecommendTime": {
+                  "type": "string"
+                },
+                "endRecommendTime": {
+                  "type": "string"
+                },
+                "duration": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/meeting/list/": {
+      "get": {
+        "tags": [
+          "meeting"
+        ],
+        "summary": "get the newest meeting list from the server",
+        "operationId": "syncMeetingsFromRemote",
+        "parameters": [
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/message_group/list": {
+      "get": {
+        "tags": [
+          "activity"
+        ],
+        "summary": "sync activities from the server",
+        "operationId": "syncActivitiesFromRemote",
+        "parameters": [
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/message_group/read": {
+      "post": {
+        "tags": [
+          "activity"
+        ],
+        "summary": "read msg group",
+        "operationId": "readSomeMessageGroup",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "parameters",
+            "description": "paramters",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messageGroupUids": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "isRead": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/message_group/read_all": {
+      "post": {
+        "tags": [
+          "activity"
+        ],
+        "summary": "read all msg group",
+        "operationId": "readAllMessageGroup",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "parameters",
+            "description": "paramters",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "isRead": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          {
+            "name": "syncToken",
+            "in": "query",
+            "description": "synchronized token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/setting/get": {
+      "get": {
+        "tags": [
+          "setting"
+        ],
+        "summary": "fetch setting info from server",
+        "operationId": "getSettingFromRemote",
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/setting/update": {
+      "post": {
+        "tags": [
+          "setting"
+        ],
+        "summary": "update setting configuration to server",
+        "operationId": "updateSettingToRemote",
+        "requestBody": {
+          "description": "setting",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Setting"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/user/get/{userUid}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "get the user info from remote",
+        "operationId": "getUserFromServer",
+        "parameters": [
+          {
+            "name": "userUid",
+            "in": "path",
+            "description": "Uid of the event",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/user/domain/list": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "get the domain list",
+        "operationId": "listDomain",
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/user/password/update": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "update password",
+        "operationId": "updatePassword",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "parameters",
+            "description": "paramters",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string"
+                },
+                "password_confirmation": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/user/signin": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "operationId": "signIn",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "The user name for login",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/user/signup": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "logs out from the system",
+        "operationId": "signUp",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "userInfoForSignUp",
+            "description": "paramters",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "photo": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/user/validate": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "validate the email for signUpp",
+        "operationId": "validateSignUpEmail",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/user/profile/update": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "update user's info to server",
+        "operationId": "updateUserInfo",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "header",
+            "description": "user info",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Setting"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/user/search/{query}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "search user",
+        "operationId": "searchUser",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "description": "user's name for search",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ITimeEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "host": {
+            "type": "string"
+          },
+          "recurrence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "start": {
+            "type": "number",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "number",
+            "format": "date-time"
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "greeting": {
+            "type": "string"
+          },
+          "eventDescription": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "extra": {
+            "type": "string"
+          },
+          "location": {
+            "$ref": "#/components/schemas/ITimeLocation"
+          },
+          "reminder": {
+            "type": "integer"
+          },
+          "source": {
+            "type": "string"
+          },
+          "eventUid": {
+            "type": "string"
+          },
+          "hostUserUid": {
+            "type": "integer"
+          },
+          "userUid": {
+            "type": "integer"
+          },
+          "calendarUid": {
+            "type": "string"
+          },
+          "recurringEventUid": {
+            "type": "string"
+          },
+          "isAllday": {
+            "type": "boolean"
+          },
+          "eventType": {
+            "type": "string"
+          },
+          "inviteeVisibility": {
+            "type": "integer"
+          },
+          "freebusyAccess": {
+            "type": "integer"
+          },
+          "showLevel": {
+            "type": "integer"
+          },
+          "deleteLevel": {
+            "type": "integer"
+          },
+          "isPinned": {
+            "type": "boolean"
+          },
+          "isMute": {
+            "type": "boolean"
+          },
+          "isArchived": {
+            "type": "boolean"
+          },
+          "archivedAt": {
+            "type": "string"
+          },
+          "coverPhoto": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "is_subscribed": {
+            "type": "boolean"
+          },
+          "is_added": {
+            "type": "boolean"
+          },
+          "adminList": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "ITimeCalendar": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string"
+          },
+          "visibility": {
+            "type": "integer",
+            "format": "binary"
+          },
+          "color": {
+            "type": "string"
+          },
+          "access": {
+            "type": "string",
+            "description": "access type"
+          },
+          "status": {
+            "type": "string"
+          },
+          "extra": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string",
+            "description": "title"
+          },
+          "source": {
+            "type": "string"
+          },
+          "calendarUid": {
+            "type": "string"
+          },
+          "userUid": {
+            "type": "integer",
+            "format": "int16"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "accountUid": {
+            "type": "string"
+          },
+          "deleteLevel": {
+            "type": "integer",
+            "format": "int16"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "ShareParameter": {
+        "type": "object",
+        "properties": {
+          "sharedUser": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "access": {
+            "type": "string"
+          }
+        }
+      },
+      "ITimeLocation": {
+        "type": "object",
+        "properties": {
+          "lcoationNote": {
+            "type": "string"
+          },
+          "locationString1": {
+            "type": "string"
+          },
+          "locationString2": {
+            "type": "string"
+          },
+          "locationLatitude": {
+            "type": "string"
+          },
+          "locationLongitude": {
+            "type": "string"
+          }
+        }
+      },
+      "ITimeTimeslot": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "number"
+          },
+          "end": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "rate": {
+            "type": "integer"
+          },
+          "timeslotUid": {
+            "type": "string"
+          },
+          "eventUid": {
+            "type": "string"
+          },
+          "acceptedNum": {
+            "type": "integer"
+          },
+          "rejectedNum": {
+            "type": "integer"
+          },
+          "pendingNum": {
+            "type": "integer"
+          },
+          "totalNum": {
+            "type": "integer"
+          },
+          "isConfirmed": {
+            "type": "boolean"
+          },
+          "isAllDay": {
+            "type": "boolean"
+          },
+          "isSystemSuggested": {
+            "type": "boolean"
+          },
+          "inviteeUid": {
+            "type": "string"
+          },
+          "userUid": {
+            "type": "integer"
+          }
+        }
+      },
+      "Setting": {
+        "type": "object",
+        "properties": {
+          "enablePreviewText": {
+            "type": "boolean"
+          },
+          "enableEventAlert": {
+            "type": "boolean"
+          },
+          "enableNotification": {
+            "type": "boolean"
+          },
+          "showPreviewText": {
+            "type": "boolean"
+          },
+          "appAlertSound": {
+            "type": "boolean"
+          },
+          "systemSound": {
+            "type": "boolean"
+          },
+          "systemVibrate": {
+            "type": "boolean"
+          },
+          "defaultSoloAlertTime": {
+            "type": "integer"
+          },
+          "defaultGroupAlertTime": {
+            "type": "integer"
+          },
+          "defaultAllDayAlertTime": {
+            "type": "integer"
+          },
+          "enableFriendRequestEmail": {
+            "type": "boolean"
+          },
+          "enableEventInvitationEmail": {
+            "type": "boolean"
+          },
+          "enableEventConfirmEmail": {
+            "type": "boolean"
+          },
+          "showCalendarOnStartup": {
+            "type": "boolean"
+          },
+          "showUncomfirmedEvents": {
+            "type": "boolean"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "userUid": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "personalAlias": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "deviceToken": {
+            "type": "string"
+          },
+          "deviceId": {
+            "type": "string"
+          },
+          "averageRatingValue": {
+            "type": "string"
+          },
+          "timezone": {
+            "type": "string"
+          },
+          "lastSigninTime": {
+            "type": "integer"
+          },
+          "signinCount": {
+            "type": "integer"
+          },
+          "gender": {
+            "type": "integer"
+          },
+          "region": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
