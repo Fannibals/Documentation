@@ -62,6 +62,8 @@ protocol PopVCDelegate {
 class POPViewController: UIViewController {
     
     var delegate: PopVCDelegate?
+    typealias ClosureName = (String)->()
+    var closure:ClosureName!
     
     convenience init() {
         print("pop vc init")
@@ -72,8 +74,9 @@ class POPViewController: UIViewController {
         print("pop vc viewdidload")
         super.viewDidLoad()
         setupUI()
-        
+
     }
+    
     // autolayout
     func setupUI(){
         // image view
@@ -84,7 +87,7 @@ class POPViewController: UIViewController {
             make.height.equalTo(imgHeight)
             make.width.equalTo(imgWidth)
         }
-        self.ImageView.layer.cornerRadius = CGFloat(imgWidth*0.5)
+        
         // passcodeTextField
         self.view.addSubview(self.passcodeTextField)
         self.passcodeTextField.snp.makeConstraints { (make) in
@@ -93,6 +96,7 @@ class POPViewController: UIViewController {
             make.width.equalTo(fieldWidth)
             make.height.equalTo(fieldHeight)
         }
+        
         // login button
         self.view.addSubview(self.loginBtn)
         self.loginBtn.snp.makeConstraints { (make) in
@@ -100,12 +104,16 @@ class POPViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.size.equalTo(self.passcodeTextField.snp_size)
         }
-        
     }
-    
+
     lazy var ImageView: UIImageView = {
         let imgView = UIImageView()
         imgView.image = UIImage(named: "icon_app")
+        // it is 0.0 due to
+        print(imgView.frame.height)
+        imgView.layer.cornerRadius = CGFloat(imgHeight / 2.0)
+        // important to set clips to superview
+        imgView.clipsToBounds = true
         return imgView
     }()
     
@@ -134,15 +142,36 @@ class POPViewController: UIViewController {
         return btn
     }()
     
+    
+    // callback func
+    func callback(closure:@escaping ClosureName) {
+        self.closure = closure
+    }
+
+    
+    
+    // PASS DATA Exercise
     @objc func didTapLoginBtn(_sender: UIButton) {
-        let baseVC = self.tabBarController?.viewControllers?[1]
-        self.delegate = baseVC as! PopVCDelegate
-        let str: String = self.passcodeTextField.text!
-        delegate?.passData(data: str)
-        // NotificationCenter.default.post(name: Notification.Name(rawValue: "changeValue"), object: nil)
+        // 1. passing data through delegate
+        // we are using tabbar's vcs
+//        let baseVC = self.tabBarController?.viewControllers?[1]
+//        self.delegate = baseVC as? PopVCDelegate
+//        delegate?.passData(data: self.passcodeTextField.text!)
+        
+        // 2. Notification
+//        NotificationCenter.default.post(name: Notification.Name(rawValue: "changeValue"), object: nil, userInfo: ["labelTxt":self.passcodeTextField.text!])
+        
+        // 3. Singleton
+//        let singleton = Singleton.singleton.share()
+//        singleton.text = self.passcodeTextField.text!
+
+        // 4. Using closure
+        guard (self.closure != nil) else {return}
+        closure(self.passcodeTextField.text!)
+        
+        // animation
         loginBtn.scale()
         passcodeTextField.scale()
-        // self.present(baseVC, animated: true, completion: nil)
     }
 
 }

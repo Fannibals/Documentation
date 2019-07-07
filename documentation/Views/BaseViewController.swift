@@ -15,21 +15,15 @@ class BaseViewController: UIViewController {
     
     @IBOutlet weak var Label: UILabel!
     
-    var labelStr = "123"
-    
     convenience init() {
         print("pop vc init")
         self.init(nibName:nil, bundle:nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        print(self.label.text)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         basicUI()
-        
+        notification()
         // Do any additional setup after loading the view.
     }
     
@@ -48,16 +42,25 @@ class BaseViewController: UIViewController {
             make.width.equalTo(200)
             make.height.equalTo(60)
         }
+        
+//        self.label.text = Singleton.singleton.share().text
+        let popVC:POPViewController = self.tabBarController?.viewControllers?[3] as! POPViewController
+        popVC.callback { (string) in
+            self.label.text = string
+        }
     }
     
     func notification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(changeLabel), name: NSNotification.Name(rawValue: "changeLabel"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(changeLabel), name: NSNotification.Name(rawValue: "changeValue"), object: nil)
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "changeValue"), object: nil, queue: OperationQueue.main, using: { (Notification) in
+            self.changeLabel(data: Notification.userInfo?["labelTxt"] as! String)
+        })
     }
     
     lazy var label: UILabel = {
+        print("label view")
         let label = UILabel()
         label.textAlignment = .center
-        label.text = labelStr
         label.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
         label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         return label
@@ -69,10 +72,9 @@ class BaseViewController: UIViewController {
         return imgView
     }()
     
-    @objc func changeLabel(){
-        DispatchQueue.main.async {
-            self.labelStr = "333"
-        }
+    // the data cannot pass in until the vc has been initialized
+    @objc func changeLabel(data:String){
+        self.label.text = data
     }
 
 }

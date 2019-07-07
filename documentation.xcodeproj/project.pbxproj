@@ -26,6 +26,7 @@
 		AA21AA6022BB40950063E61F /* documentation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA21AA5E22BB40950063E61F /* documentation.xcdatamodeld */; };
 		AA21AA6222BB409B0063E61F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA21AA6122BB409B0063E61F /* Assets.xcassets */; };
 		AA21AA6522BB409B0063E61F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA21AA6322BB409B0063E61F /* LaunchScreen.storyboard */; };
+		AA22D27422CF08FC00C8539A /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA22D27322CF08FC00C8539A /* Singleton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		AA21AA6122BB409B0063E61F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA21AA6422BB409B0063E61F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA21AA6622BB409B0063E61F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA22D27322CF08FC00C8539A /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		B9EC6B9817A5D62CAB11CE80 /* Pods_documentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_documentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99B5B9B55B785039EBE02B8 /* Pods-documentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-documentation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-documentation/Pods-documentation.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +116,7 @@
 		AA21AA5622BB40950063E61F /* documentation */ = {
 			isa = PBXGroup;
 			children = (
+				AA22D27022CF05B300C8539A /* Singleton */,
 				AA1B368022CC56080082BBD4 /* POP */,
 				AA1B34A422C5D716001F68E9 /* Views */,
 				AA21AA5722BB40950063E61F /* AppDelegate.swift */,
@@ -124,6 +127,14 @@
 				AA21AA5E22BB40950063E61F /* documentation.xcdatamodeld */,
 			);
 			path = documentation;
+			sourceTree = "<group>";
+		};
+		AA22D27022CF05B300C8539A /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				AA22D27322CF08FC00C8539A /* Singleton.swift */,
+			);
+			path = Singleton;
 			sourceTree = "<group>";
 		};
 		BB675DD0699D1C9103D5CC46 /* Pods */ = {
@@ -281,6 +292,7 @@
 				AA1B34AC22C5E19E001F68E9 /* MonthViewController.swift in Sources */,
 				AA1B34AA22C5E108001F68E9 /* WeekViewController.swift in Sources */,
 				AA1B367E22CB2AC40082BBD4 /* ContainerViewController.swift in Sources */,
+				AA22D27422CF08FC00C8539A /* Singleton.swift in Sources */,
 				AA1B367722CB23120082BBD4 /* Child1ViewController.swift in Sources */,
 				AA1B34A822C5D8D6001F68E9 /* CalendarViewController.swift in Sources */,
 				AA1B34A622C5D818001F68E9 /* BaseTabbarController.swift in Sources */,
